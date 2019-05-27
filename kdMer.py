@@ -6,7 +6,7 @@ def generatekdmer(k,d,sequence):
 
     i = 0    
     while True:
-        if i+(k*2) > len(sequence):
+        if i+(k*2)+1 > len(sequence):
             break
         s = ''
 
@@ -14,12 +14,12 @@ def generatekdmer(k,d,sequence):
             s+= sequence[j]
         s += '|'
 
-        for j in range(i+k,i+2*k):
+        for j in range(i+k+1,i+2*k+1):
             s+= sequence[j]
 
         kmer.append(s)
         i+=1
-
+    print(kmer)
     return str(kmer)
 
 def saveinfile(content,filename):
@@ -54,8 +54,6 @@ def readfile():
 def main():
     k,d,content = readfile()
     if content != '':
-        # print(content)
-        # print(k,d)
         kmer = generatekdmer(k,d,content)
         filename = "k"+str(k)+"d"+str(d)+"mer.txt"
         saveinfile(kmer,filename)
