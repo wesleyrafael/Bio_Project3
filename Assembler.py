@@ -35,7 +35,7 @@ def main():
         #     print(kdmer)
         
         sequence = assemble(k,d,kdmers)
-        filename="k"+str(k)+"d"+str(d)+"mer.fasta"
+        filename="k"+str(k)+"d"+str(d)+"seq.fasta"
         saveinfile(sequence,filename)
 
 if __name__ == "__main__":

@@ -2,9 +2,25 @@ import tkinter as tk
 from tkinter import filedialog
 
 def generatekdmer(k,d,sequence):
-    kmer = ''
+    kmer = []
 
-    return kmer
+    i = 0    
+    while True:
+        if i+(k*2) > len(sequence):
+            break
+        s = ''
+
+        for j in range(i,i+k):
+            s+= sequence[j]
+        s += '|'
+
+        for j in range(i+k,i+2*k):
+            s+= sequence[j]
+
+        kmer.append(s)
+        i+=1
+
+    return str(kmer)
 
 def saveinfile(content,filename):
     root = tk.Tk()
@@ -16,7 +32,7 @@ def saveinfile(content,filename):
 def readfile():
     root = tk.Tk()
     root.withdraw()
-    file_path = filedialog.askopenfilename(title="Selecionar arquivo fasta",filetypes =(("Arquivo Fasta","*.fasta"),("Todos os arquivos","*.*")))
+    file_path = filedialog.askopenfilename(title="Selecionar arquivo fasta",filetypes=(("Arquivo Fasta","*.fasta"),("Todos os arquivos","*.*")))
 
     content = ''
     k = ''
