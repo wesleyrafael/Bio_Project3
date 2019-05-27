@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 
-def assemble(k,d,kdmers):
+def assemble(k,d,kmers):
     sequence = ''
 
     return sequence
@@ -10,8 +10,9 @@ def saveinfile(content,filename):
     root = tk.Tk()
     root.filename = filedialog.asksaveasfilename(title="Selecionar pasta para salvar arquivo de saida",initialfile=filename,defaultextension=".fasta",filetypes=(("Arquivo Fasta","*.fasta"),("all files","*.*")))
 
-    with open(root.filename,"w") as file:
-        file.write(content)
+    if(root.filename):
+        with open(root.filename,"w") as file:
+            file.write(content)
 
 def readfile():
     root = tk.Tk()
@@ -30,11 +31,11 @@ def readfile():
 def main():
     k,d,content = readfile()
     if content != '':
-        kdmers = content.replace(' ','').replace('\'','').replace('[','').replace(']','').split(',')
-        # for kdmer in kdmers:
-        #     print(kdmer)
+        kmers = content.replace(' ','').replace('\'','').replace('[','').replace(']','').split(',')
+        # for kmer in kmers:
+        #     print(kmer)
         
-        sequence = assemble(k,d,kdmers)
+        sequence = assemble(k,d,kmers)
         filename="k"+str(k)+"d"+str(d)+"seq.fasta"
         saveinfile(sequence,filename)
 

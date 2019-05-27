@@ -1,12 +1,22 @@
 import tkinter as tk
 from tkinter import filedialog
 
-def generatekdmer(k,d,sequence):
+def sortkmer(list):
+    for kmer in list:
+        kmer.replace('|','1')
+    
+    list.sort()
+
+    for kmer in list:
+        kmer.replace('1','|')
+
+
+def generatekmer(k,d,sequence):
     kmer = []
 
     i = 0    
     while True:
-        if i+(k*2)+1 > len(sequence):
+        if i+(k*2)+d > len(sequence):
             break
         s = ''
 
@@ -14,20 +24,22 @@ def generatekdmer(k,d,sequence):
             s+= sequence[j]
         s += '|'
 
-        for j in range(i+k+1,i+2*k+1):
+        for j in range(i+k+d,i+2*k+d):
             s+= sequence[j]
 
         kmer.append(s)
         i+=1
-    print(kmer)
+
+        sortkmer(kmer)
     return str(kmer)
 
 def saveinfile(content,filename):
     root = tk.Tk()
     root.filename = filedialog.asksaveasfilename(title="Selecionar pasta para salvar arquivo de saida",initialfile=filename,defaultextension=".txt",filetypes=(("Arquivo de Texto","*.txt"),("all files","*.*")))
     
-    with open(root.filename,"w") as file:
-        file.write(content)
+    if(root.filename):
+        with open(root.filename,"w") as file:
+            file.write(content)
 
 def readfile():
     root = tk.Tk()
@@ -54,7 +66,7 @@ def readfile():
 def main():
     k,d,content = readfile()
     if content != '':
-        kmer = generatekdmer(k,d,content)
+        kmer = generatekmer(k,d,content)
         filename = "k"+str(k)+"d"+str(d)+"mer.txt"
         saveinfile(kmer,filename)
         
