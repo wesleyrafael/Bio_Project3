@@ -1,32 +1,26 @@
 import tkinter as tk
 from tkinter import filedialog
 
-def generatekdmer(sequence):
-    sequence = ''
+def generatekdmer(k,d,sequence):
+    kmer = ''
 
-    return sequence
+    return kmer
 
-def saveinfile(content):
+def saveinfile(content,filename):
     root = tk.Tk()
-    root.filename = filedialog.asksaveasfilename(title = "Selecionar pasta para salvar arquivo de saida",filetypes = (("Arquivo de Texto","*.txt"),("all files","*.*")))
-    print (root.filename)
-
-    if ".txt" not in root.filename:
-        root.filename += '.txt'
-
+    root.filename = filedialog.asksaveasfilename(title="Selecionar pasta para salvar arquivo de saida",initialfile=filename,defaultextension=".txt",filetypes=(("Arquivo de Texto","*.txt"),("all files","*.*")))
+    
     with open(root.filename,"w") as file:
         file.write(content)
 
 def readfile():
     root = tk.Tk()
     root.withdraw()
-    file_path = filedialog.askopenfilename(title = "Selecionar arquivo fasta",filetypes = (("Arquivo Fasta","*.fasta"),("Todos os arquivos","*.*")))
+    file_path = filedialog.askopenfilename(title="Selecionar arquivo fasta",filetypes =(("Arquivo Fasta","*.fasta"),("Todos os arquivos","*.*")))
 
     content = ''
     k = ''
     d = ''
-
-    print(file_path)
     
     if ".fasta" in file_path:
         with open(file_path,"r") as file:
@@ -39,7 +33,6 @@ def readfile():
                 else:
                     content += line + '\n'
             
-    
     return int(k),int(d),content.strip()
 
 def main():
@@ -47,8 +40,10 @@ def main():
     if content != '':
         print(content)
         print(k,d)
-        
-    
 
+    kmer = generatekdmer(k,d,content)
+    filename = "k"+str(k)+"d"+str(d)+"mer.txt"
+    saveinfile(kmer,filename)
+        
 if __name__ == "__main__":
     main()

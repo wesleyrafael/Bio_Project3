@@ -6,13 +6,9 @@ def assemble(k,d,kdmers):
 
     return sequence
 
-def saveinfile(content):
+def saveinfile(content,filename):
     root = tk.Tk()
-    root.filename = filedialog.asksaveasfilename(title = "Selecionar pasta para salvar arquivo de saida",filetypes = (("Arquivo Fasta","*.fasta"),("all files","*.*")))
-    print (root.filename)
-
-    if ".fasta" not in root.filename:
-        root.filename += '.fasta'
+    root.filename = filedialog.asksaveasfilename(title="Selecionar pasta para salvar arquivo de saida",initialfile=filename,defaultextension=".fasta",filetypes=(("Arquivo Fasta","*.fasta"),("all files","*.*")))
 
     with open(root.filename,"w") as file:
         file.write(content)
@@ -20,7 +16,7 @@ def saveinfile(content):
 def readfile():
     root = tk.Tk()
     root.withdraw()
-    file_path = filedialog.askopenfilename(title = "Selecionar arquivo kdMer",filetypes = (("Arquivo de Texto","*.txt"),("Todos os arquivos","*.*")))
+    file_path = filedialog.askopenfilename(title="Selecionar arquivo kdMer",filetypes=(("Arquivo de Texto","*.txt"),("Todos os arquivos","*.*")))
 
     k,d = file_path.split('/')[-1].replace('mer.txt','').replace('k','').split('d')
         
@@ -39,8 +35,8 @@ def main():
             print(kdmer)
         
         sequence = assemble(k,d,kdmers)
-        # sequence = 'teste'
-        saveinfile(sequence)
+        filename="k"+str(k)+"d"+str(d)+"mer.fasta"
+        saveinfile(sequence,filename)
 
 if __name__ == "__main__":
     main()
