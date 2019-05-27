@@ -40,12 +40,13 @@ def readfile():
                     content += line + '\n'
             
     
-    return content
+    return int(k),int(d),content.strip()
 
 def main():
-    content = readfile().strip()
+    k,d,content = readfile()
     if content != '':
         print(content)
+        print(k,d)
         
     
 
