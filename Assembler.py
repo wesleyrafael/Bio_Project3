@@ -1,31 +1,46 @@
 import tkinter as tk
 from tkinter import filedialog
 
-
-def assemble(kdmers):
+def assemble(k,d,kdmers):
     sequence = ''
 
     return sequence
 
-def readFile():
+def saveinfile(content):
+    root = tk.Tk()
+    root.filename = filedialog.asksaveasfilename(title = "Selecionar pasta para salvar arquivo de saida",filetypes = (("Arquivo Fasta","*.fasta"),("all files","*.*")))
+    print (root.filename)
+
+    if ".fasta" not in root.filename:
+        root.filename += '.fasta'
+
+    with open(root.filename,"w") as file:
+        file.write(content)
+
+def readfile():
     root = tk.Tk()
     root.withdraw()
-    file_path = filedialog.askopenfilename(title = "Selecionar arquivo kdMer",filetypes = (("Arquivos de Texto","*.txt"),("Todos os arquivos","*.*")))
+    file_path = filedialog.askopenfilename(title = "Selecionar arquivo kdMer",filetypes = (("Arquivo de Texto","*.txt"),("Todos os arquivos","*.*")))
 
+    k,d = file_path.split('/')[-1].replace('mer.txt','').replace('k','').split('d')
+        
     content = ''
-    with open(file_path,"r") as file:
-        content = file.readline().strip()
+    if ".txt" in file_path:
+        with open(file_path,"r") as file:
+            content = file.readline().strip()
     
-    return content
+    return int(k),int(d),content
 
 def main():
-    content = readFile()
-    kdmers = content.replace(' ','').replace('\'','').replace('[','').replace(']','').split(',')
-    for kdmer in kdmers:
-        print(kdmer)
-
-    sequence = assemble(kdmers)
-    # print(sequence)
+    k,d,content = readfile()
+    if content != '':
+        kdmers = content.replace(' ','').replace('\'','').replace('[','').replace(']','').split(',')
+        for kdmer in kdmers:
+            print(kdmer)
+        
+        sequence = assemble(k,d,kdmers)
+        # sequence = 'teste'
+        saveinfile(sequence)
 
 if __name__ == "__main__":
-    main();
+    main()
