@@ -38,12 +38,11 @@ def readfile():
 def main():
     k,d,content = readfile()
     if content != '':
-        print(content)
-        print(k,d)
-
-    kmer = generatekdmer(k,d,content)
-    filename = "k"+str(k)+"d"+str(d)+"mer.txt"
-    saveinfile(kmer,filename)
+        # print(content)
+        # print(k,d)
+        kmer = generatekdmer(k,d,content)
+        filename = "k"+str(k)+"d"+str(d)+"mer.txt"
+        saveinfile(kmer,filename)
         
 if __name__ == "__main__":
     main()

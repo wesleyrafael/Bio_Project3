@@ -31,8 +31,8 @@ def main():
     k,d,content = readfile()
     if content != '':
         kdmers = content.replace(' ','').replace('\'','').replace('[','').replace(']','').split(',')
-        for kdmer in kdmers:
-            print(kdmer)
+        # for kdmer in kdmers:
+        #     print(kdmer)
         
         sequence = assemble(k,d,kdmers)
         filename="k"+str(k)+"d"+str(d)+"mer.fasta"
