@@ -23,21 +23,30 @@ def readfile():
     file_path = filedialog.askopenfilename(title = "Selecionar arquivo fasta",filetypes = (("Arquivo Fasta","*.fasta"),("Todos os arquivos","*.*")))
 
     content = ''
+    k = ''
+    d = ''
+
+    print(file_path)
+    
     if ".fasta" in file_path:
         with open(file_path,"r") as file:
             while True:
-                content += file.readline().strip()
-                if content == '':
+                line = file.readline().strip()
+                if line == '':
                     break
+                elif '>' in line:
+                    k,d = line.replace('>','').replace('=','').replace('k','').split('d')
                 else:
-                    content += '\n'
+                    content += line + '\n'
+            
     
     return content
 
 def main():
-    content = readfile()
+    content = readfile().strip()
     if content != '':
         print(content)
+        
     
 
 if __name__ == "__main__":
