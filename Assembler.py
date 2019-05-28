@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 def assemble(k,d,kmers):
-    header = '>k='+str(k)+'d='+str(d)+"\n"
+    header = '>k='+str(k)+'d='+str(d)+'\n'
     sequence = 'TESTE'
 
     return header + sequence
