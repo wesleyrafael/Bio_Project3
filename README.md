@@ -2,13 +2,13 @@
 
 * Crie um programa chamado kdMer. Tal programa tem como entrada uma sequência genômica no formado FASTA, o tamanho da leitura (k) e a distância entre as leituras (d). A partir desse programa, ele gera, em ordem lexicográfica, o (k,d) mers em um arquivo texto. Supondo que k = 50 e d = 20, o arquivo de saída do programa será k50d20mer.txt. A entrada deverá ter o seguinte formato:
 
-  INPUT - arquivo fasta com o seguinte layout:
+  **INPUT** - arquivo fasta com o seguinte layout:
   ```
   >k=999d=999
   Sequência de Nucleotídeos
   ```
 
-  OUTPUT – arquivo texto com os kdmers em ordem lexicográfica:
+  **OUTPUT** – arquivo texto com os kdmers em ordem lexicográfica:
   ```
   [ATTG|TTGG, GCTG|GGTG, ...]
   ```
