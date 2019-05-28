@@ -37,7 +37,7 @@ def saveinfile(content,filename):
     root = tk.Tk()
     root.filename = filedialog.asksaveasfilename(title="Selecionar pasta para salvar arquivo de saida",initialfile=filename,defaultextension=".txt",filetypes=(("Arquivo de Texto","*.txt"),("all files","*.*")))
     
-    if(root.filename):
+    if root.filename:
         with open(root.filename,"w") as file:
             file.write(content)
 
