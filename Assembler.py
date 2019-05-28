@@ -23,7 +23,7 @@ def readfile():
     k = 0
     d = 0        
     
-    if str(file_path) and ".txt" in str(file_path):
+    if str(file_path) and "mer.txt" in str(file_path):
         k,d = file_path.split('/')[-1].replace('mer.txt','').replace('k','').split('d')
         with open(file_path,"r") as file:
             content = file.readline().strip()
