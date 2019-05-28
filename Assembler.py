@@ -18,15 +18,17 @@ def readfile():
     root = tk.Tk()
     root.withdraw()
     file_path = filedialog.askopenfilename(title="Selecionar arquivo kdMer",filetypes=(("Arquivo de Texto","*.txt"),("Todos os arquivos","*.*")))
-
-    k,d = file_path.split('/')[-1].replace('mer.txt','').replace('k','').split('d')
-        
+    
     content = ''
-    if ".txt" in file_path:
+    k = 0
+    d = 0        
+    
+    if str(file_path) and ".txt" in str(file_path):
+        k,d = file_path.split('/')[-1].replace('mer.txt','').replace('k','').split('d')
         with open(file_path,"r") as file:
             content = file.readline().strip()
-    
-    return int(k),int(d),content
+        return int(k),int(d),content
+    return 0,0,''
 
 def main():
     k,d,content = readfile()

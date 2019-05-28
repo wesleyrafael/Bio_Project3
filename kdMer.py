@@ -47,10 +47,10 @@ def readfile():
     file_path = filedialog.askopenfilename(title="Selecionar arquivo fasta",filetypes=(("Arquivo Fasta","*.fasta"),("Todos os arquivos","*.*")))
 
     content = ''
-    k = ''
-    d = ''
+    k = 0
+    d = 0
     
-    if ".fasta" in file_path:
+    if str(file_path) and ".fasta" in str(file_path):
         with open(file_path,"r") as file:
             while True:
                 line = file.readline().strip()
@@ -59,12 +59,13 @@ def readfile():
                 elif '>' in line:
                     k,d = line.replace('>','').replace('=','').replace('k','').split('d')
                 else:
-                    content += line + '\n'
-            
-    return int(k),int(d),content.strip()
+                    content += line + '\n'        
+        return int(k),int(d),content.strip()
+    return 0,0,''
 
 def main():
     k,d,content = readfile()
+    
     if content != '':
         kmer = generatekmer(k,d,content)
         filename = "k"+str(k)+"d"+str(d)+"mer.txt"
