@@ -2,9 +2,10 @@ import tkinter as tk
 from tkinter import filedialog
 
 def assemble(k,d,kmers):
-    sequence = ''
+    header = '>k='+str(k)+'d='+str(d)+"\n"
+    sequence = 'TESTE'
 
-    return sequence
+    return header + sequence
 
 def saveinfile(content,filename):
     root = tk.Tk()
