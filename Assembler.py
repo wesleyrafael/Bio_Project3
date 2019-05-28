@@ -32,7 +32,7 @@ def readfile():
 
 def main():
     k,d,content = readfile()
-    if content != '':
+    if content != '' and k != 0 and d != 0:
         kmers = content.replace(' ','').replace('\'','').replace('[','').replace(']','').split(',')
         # for kmer in kmers:
         #     print(kmer)

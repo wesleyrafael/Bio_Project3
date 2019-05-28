@@ -66,7 +66,7 @@ def readfile():
 def main():
     k,d,content = readfile()
     
-    if content != '':
+    if content != '' and k != 0 and d != 0:
         kmer = generatekmer(k,d,content)
         filename = "k"+str(k)+"d"+str(d)+"mer.txt"
         saveinfile(kmer,filename)
