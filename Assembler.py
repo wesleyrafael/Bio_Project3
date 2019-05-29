@@ -3,22 +3,22 @@ from tkinter import filedialog
 import re
 
 class Composition:
-    def __init__(self, kmer, prefix, sufix):
+    def __init__(self, kmer, prefix, suffix):
         self.kmer = kmer
         self.prefix = prefix
-        self.sufix = sufix
+        self.suffix = suffix
 
-def create_sufix_prefix(kmer, k):
+def create_suffix_prefix(kmer, k):
     prefix = []
-    sufix = []
+    suffix = []
 
     for arrange in kmer:
         prefix.append(arrange[:k-1])
 
     for arrange in kmer:
-        sufix.append(arrange[-(k-1):])
+        suffix.append(arrange[-(k-1):])
 
-    return [prefix, sufix]
+    return [prefix, suffix]
 
 def find_initial_node(nodes):
     initial_node = -1
@@ -28,7 +28,7 @@ def find_initial_node(nodes):
 
         for m in nodes:
             if (nodes.index(m) != nodes.index(n)):
-                if (m.sufix == n.prefix):
+                if (m.suffix == n.prefix):
                     found = True
 
         if(found == False):
@@ -44,7 +44,7 @@ def find_path(initial_node, remaining_nodes):
 
     while(len(remaining_nodes) > 0):
         for n in remaining_nodes:
-            if(current_node.sufix == n.prefix):
+            if(current_node.suffix == n.prefix):
                 current_node = n
                 path.append(current_node)
                 remaining_nodes.pop(remaining_nodes.index(n))
@@ -56,8 +56,8 @@ def assemble(kmers, k):
 
     nodes = []
     for kmer in kmers:
-        prefix_sufix = create_sufix_prefix(kmer.split("|"), k)
-        nodes.append(Composition(kmer.split("|"), prefix_sufix[0], prefix_sufix[1]))
+        prefix_suffix = create_suffix_prefix(kmer.split("|"), k)
+        nodes.append(Composition(kmer.split("|"), prefix_suffix[0], prefix_suffix[1]))
 
     temp = find_initial_node(nodes)
     initial_node = temp[0]
@@ -78,7 +78,6 @@ def assemble(kmers, k):
             last_suffix = km
         i+=1
     
-    j=0
     remaining_aminoacids = False
     for km in second_half:
         if remaining_aminoacids:
