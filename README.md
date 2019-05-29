@@ -13,4 +13,4 @@
   [ATTG|TTGG, GCTG|GGTG, ...]
   ```
 
-* Crie um programa chamado Assembler capaz de remontar uma sequência genética a partir de um arquivo texto contendo os kdmers em ordem lexicográfica. A entrada será a saída do programa anterior (preâmbulo) e a saída será um arquivo FASTA como a sequência remontada.
+* Crie um programa chamado Assembler capaz de remontar uma sequência genética a partir de um arquivo texto contendo os kdmers em ordem lexicográfica. A entrada será a saída do programa anterior (preâmbulo) e a saída será um arquivo FASTA com a sequência remontada.
