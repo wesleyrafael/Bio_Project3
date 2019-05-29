@@ -65,9 +65,32 @@ def assemble(kmers, k):
 
     path = find_path(initial_node, remaining_nodes)
 
+    first_half = [p.kmer[0] for p in path]
+    second_half = [p.kmer[1] for p in path]
+
+    i=0
+    last_suffix = ''
+    for km in first_half:
+        if i == 0:
+            sequence += km
+        else:
+            sequence += km[-1]
+            last_suffix = km
+        i+=1
+    
+    j=0
+    remaining_aminoacids = False
+    for km in second_half:
+        if remaining_aminoacids:
+            sequence += km[-1]
+        elif km != last_suffix:
+            continue
+        else:
+            remaining_aminoacids = True
+
     return sequence
 
-def saveinfile(content,filename):
+def saveinfile(content, filename):
     root = tk.Tk()
     root.filename = filedialog.asksaveasfilename(title="Selecionar pasta para salvar arquivo de saida",initialfile=filename,defaultextension=".fasta",filetypes=(("Arquivo Fasta","*.fasta"),("all files","*.*")))
 
