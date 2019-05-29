@@ -2,8 +2,68 @@ import tkinter as tk
 from tkinter import filedialog
 import re
 
-def assemble(k,d,kmers):
+class Composition:
+    def __init__(self, kmer, prefix, sufix):
+        self.kmer = kmer
+        self.prefix = prefix
+        self.sufix = sufix
+
+def create_sufix_prefix(kmer, k):
+    prefix = []
+    sufix = []
+
+    for arrange in kmer:
+        prefix.append(arrange[:k-1])
+
+    for arrange in kmer:
+        sufix.append(arrange[-(k-1):])
+
+    return [prefix, sufix]
+
+def find_initial_node(nodes):
+    initial_node = -1
+
+    for n in nodes:
+        found = False
+
+        for m in nodes:
+            if (nodes.index(m) != nodes.index(n)):
+                if (m.sufix == n.prefix):
+                    found = True
+
+        if(found == False):
+            initial_node = n
+            nodes.pop(nodes.index(n))
+            break
+
+    return [initial_node, nodes]
+
+def find_path(initial_node, remaining_nodes):
+    current_node = initial_node
+    path = [initial_node]
+
+    while(len(remaining_nodes) > 0):
+        for n in remaining_nodes:
+            if(current_node.sufix == n.prefix):
+                current_node = n
+                path.append(current_node)
+                remaining_nodes.pop(remaining_nodes.index(n))
+
+    return path
+
+def assemble(kmers, k):
     sequence = ''
+
+    nodes = []
+    for kmer in kmers:
+        prefix_sufix = create_sufix_prefix(kmer.split("|"), k)
+        nodes.append(Composition(kmer.split("|"), prefix_sufix[0], prefix_sufix[1]))
+
+    temp = find_initial_node(nodes)
+    initial_node = temp[0]
+    remaining_nodes = temp[1]
+
+    path = find_path(initial_node, remaining_nodes)
 
     return sequence
 
@@ -19,11 +79,11 @@ def readfile():
     root = tk.Tk()
     root.withdraw()
     file_path = filedialog.askopenfilename(title="Selecionar arquivo kdMer",filetypes=(("Arquivo de Texto","*.txt"),("Todos os arquivos","*.*")))
-    
+
     content = ''
     k = 0
-    d = 0        
-    
+    d = 0
+
     if str(file_path) and re.search(r'k\d+d\d+mer.txt',file_path):
         k,d = file_path.split('/')[-1].replace('mer.txt','').replace('k','').split('d')
         with open(file_path,"r") as file:
@@ -35,10 +95,10 @@ def main():
     k,d,content = readfile()
     if content != '' and k != 0 and d != 0:
         kmers = content.replace(' ','').replace('\'','').replace('[','').replace(']','').split(',')
-        # for kmer in kmers:
-        #     print(kmer)
+
         header = '>k='+str(k)+'d='+str(d)+'\n'
-        sequence = assemble(k,d,kmers)
+        sequence = assemble(kmers, k)
+
         filename="k"+str(k)+"d"+str(d)+"seq.fasta"
         saveinfile(header + sequence,filename)
 
