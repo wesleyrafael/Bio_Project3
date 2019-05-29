@@ -2,10 +2,9 @@ import tkinter as tk
 from tkinter import filedialog
 
 def assemble(k,d,kmers):
-    header = '>k='+str(k)+'d='+str(d)+'\n'
-    sequence = 'TESTE'
+    sequence = ''
 
-    return header + sequence
+    return sequence
 
 def saveinfile(content,filename):
     root = tk.Tk()
@@ -37,10 +36,10 @@ def main():
         kmers = content.replace(' ','').replace('\'','').replace('[','').replace(']','').split(',')
         # for kmer in kmers:
         #     print(kmer)
-        
+        header = '>k='+str(k)+'d='+str(d)+'\n'
         sequence = assemble(k,d,kmers)
         filename="k"+str(k)+"d"+str(d)+"seq.fasta"
-        saveinfile(sequence,filename)
+        saveinfile(header + sequence,filename)
 
 if __name__ == "__main__":
     main()
